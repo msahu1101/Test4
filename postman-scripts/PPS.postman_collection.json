@@ -1,0 +1,514 @@
+{
+	"info": {
+		"_postman_id": "eabaf390-25f9-4851-b7e0-642231ef00c3",
+		"name": "PPS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34841524"
+	},
+	"item": [
+		{
+			"name": "ServiceToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PPS-Service-Token-Test\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"access_token\", jsonData.access_token)\r",
+							"    pm.response.to.have.status(200);    \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "payment_diversity_service_id",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "loyalty:profile:read directory:read:guest directory:search:guest",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://mgm-nonprod-qa4.apigee.net/identity/authorization/v1/mgmsvc/token",
+					"protocol": "https",
+					"host": [
+						"mgm-nonprod-qa4",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"identity",
+						"authorization",
+						"v1",
+						"mgmsvc",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authorize",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PPS-Authorize-Test\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"paymentId\");\r",
+							"    \r",
+							"    var res = pm.response.json();\r",
+							"    if(res.results != null){\r",
+							"        pm.environment.set(\"paymentId\", res.results[0].gatewayResult.transaction.paymentId);\r",
+							"        pm.environment.set(\"clientRefNum\", res.results[0].gatewayResult.clientReferenceNumber);\r",
+							"    }\r",
+							"    pm.response.to.have.status(200);    \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-mgm-source",
+						"value": "web"
+					},
+					{
+						"key": "x-mgm-session-id",
+						"value": "sessionId"
+					},
+					{
+						"key": "x-mgm-journey-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-correlation-id",
+						"value": "API_TEST_1811"
+					},
+					{
+						"key": "x-mgm-transaction-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-client-id",
+						"value": "12345637890"
+					},
+					{
+						"key": "x-mgm-channel",
+						"value": "paymentwidget"
+					},
+					{
+						"key": "user-agent",
+						"value": "browser"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"transactionId\": \"c930e570-5111-45bb-8d2d-ca08341f1182\",\r\n    \"clientReferenceNumber\": \"Postman_Script_Run\",\r\n    \"groupId\": \"00123456\",\r\n    \"mgmId\": \"string\",\r\n    \"sessionId\": \"ce4fa42e-eb82-4f0a-98b5-8c014e7d56a7\",\r\n    \"clientId\": \"23232\",\r\n    \"amount\": [\r\n        {\r\n            \"name\": \"total\",\r\n            \"value\": \"477\"\r\n        }\r\n    ],\r\n    \"payment\": {\r\n        \"billingAddress\": {\r\n            \"address\": \"69 Main Street\",\r\n            \"address2\": \"\",\r\n            \"city\": \"Plano\",\r\n            \"postalCode\": \"69000\",\r\n            \"state\": \"Alaska\",\r\n            \"country\": \"US\",\r\n            \"phoneNumber\": \"+125356387873\",\r\n            \"email\": \"APtest123@gmail.com\"\r\n        },\r\n        \"currencyCode\": \"USD\",\r\n        \"securityCodeIndicator\": \"CSC_1\",\r\n        \"cardPresent\": \"N\",\r\n        \"tenderDetails\": {\r\n            \"nameOnTender\": \"Egon Johnson\",\r\n            \"bin\": \"379882\",\r\n            \"maskedCardNumber\": \"•••••••••••6056\",\r\n            \"tenderType\": \"Credit Card\",\r\n            \"issuerType\": \"Gift Card\",\r\n            \"loyaltyPayment\": false,\r\n            \"mgmToken\": \"415786ssMMqp6056\",\r\n            \"expireMonth\": \"05\",\r\n            \"expireYear\": \"29\",\r\n            \"securityCode\": \"333\"\r\n        }\r\n    },\r\n    \"additionalAttributes\": [\r\n        {\r\n            \"name\": \"customerReference\",\r\n            \"value\": \"Can be any type\"\r\n        },\r\n        {\r\n            \"name\": \"productDescriptors\",\r\n            \"value\": \"Room, Event\"\r\n        },\r\n        {\r\n            \"name\": \"additionalOrderId\",\r\n            \"value\": \"32323\"\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/auth",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Capture",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PPS-Capture-Test\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"gatewayResult\");\r",
+							"    pm.response.to.have.status(200);      \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-mgm-source",
+						"value": "web"
+					},
+					{
+						"key": "x-mgm-journey-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-correlation-id",
+						"value": "API_TEST_18112"
+					},
+					{
+						"key": "x-mgm-transaction-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-client-id",
+						"value": "clientID"
+					},
+					{
+						"key": "x-mgm-channel",
+						"value": "paymentwidget"
+					},
+					{
+						"key": "user-agent",
+						"value": "browser"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"transactionId\": \"c930e570-5111-45bb-8d2d-ca08341f1182\",\r\n    \"clientReferenceNumber\": \"{{clientRefNum}}\",\r\n    \"groupId\": \"00123456\",\r\n    \"mgmId\": \"string\",\r\n    \"sessionId\": \"ce4fa42e-eb82-4f0a-98b5-8c014e7d56a7\",\r\n    \"clientId\": \"23232\",\r\n    \"amount\": [\r\n        {\r\n            \"name\": \"total\",\r\n            \"value\": \"477\"\r\n        }\r\n    ],\r\n    \"paymentId\": \"{{paymentId}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/capture",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"capture"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refund",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PPS-Refund-Test\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"gatewayResult\");\r",
+							"    pm.response.to.have.status(200);      \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-mgm-source",
+						"value": "web"
+					},
+					{
+						"key": "x-mgm-session-id",
+						"value": "sessionId"
+					},
+					{
+						"key": "x-mgm-journey-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-correlation-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-transaction-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-client-id",
+						"value": "1234567892"
+					},
+					{
+						"key": "x-mgm-channel",
+						"value": "paymentwidget"
+					},
+					{
+						"key": "user-agent",
+						"value": "browser"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientReferenceNumber\": \"{{clientRefNum}}\",\r\n    \"sessionId\": \"58b5a446-6152-49af-a37f-6740080cc03a\",\r\n    \"amount\": [\r\n        {\r\n            \"name\": \"total\",\r\n            \"value\": 477.0\r\n        }\r\n    ],\r\n    \"payment\": {\r\n        \"cardPresent\": \"N\",\r\n        \"tenderDetails\": {\r\n            \"mgmToken\": \"2381966411824377\",\r\n            \"expireMonth\": \"10\",\r\n            \"expireYear\": \"25\"\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/refund",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"refund"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Void-Authorize",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PPS-Authorize-Void-Test\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"paymentId\");\r",
+							"    \r",
+							"    var res = pm.response.json();\r",
+							"    if(res.results != null){\r",
+							"        pm.environment.set(\"paymentId\", res.results[0].gatewayResult.transaction.paymentId);\r",
+							"        pm.environment.set(\"clientRefNum\", res.results[0].gatewayResult.clientReferenceNumber);\r",
+							"    }\r",
+							"    pm.response.to.have.status(200);    \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-mgm-source",
+						"value": "web"
+					},
+					{
+						"key": "x-mgm-session-id",
+						"value": "sessionId"
+					},
+					{
+						"key": "x-mgm-journey-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-correlation-id",
+						"value": "API_TEST_1811"
+					},
+					{
+						"key": "x-mgm-transaction-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-client-id",
+						"value": "12345637890"
+					},
+					{
+						"key": "x-mgm-channel",
+						"value": "paymentwidget"
+					},
+					{
+						"key": "user-agent",
+						"value": "browser"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"transactionId\": \"c930e570-5111-45bb-8d2d-ca08341f1182\",\r\n    \"clientReferenceNumber\": \"Postman_Script_Run_2\",\r\n    \"groupId\": \"00123456\",\r\n    \"mgmId\": \"string\",\r\n    \"sessionId\": \"ce4fa42e-eb82-4f0a-98b5-8c014e7d56a7\",\r\n    \"clientId\": \"23232\",\r\n    \"amount\": [\r\n        {\r\n            \"name\": \"total\",\r\n            \"value\": \"477\"\r\n        }\r\n    ],\r\n    \"payment\": {\r\n        \"billingAddress\": {\r\n            \"address\": \"69 Main Street\",\r\n            \"address2\": \"\",\r\n            \"city\": \"Plano\",\r\n            \"postalCode\": \"69000\",\r\n            \"state\": \"Alaska\",\r\n            \"country\": \"US\",\r\n            \"phoneNumber\": \"+125356387873\",\r\n            \"email\": \"APtest123@gmail.com\"\r\n        },\r\n        \"currencyCode\": \"USD\",\r\n        \"securityCodeIndicator\": \"CSC_1\",\r\n        \"cardPresent\": \"N\",\r\n        \"tenderDetails\": {\r\n            \"nameOnTender\": \"Egon Johnson\",\r\n            \"bin\": \"379882\",\r\n            \"maskedCardNumber\": \"•••••••••••6056\",\r\n            \"tenderType\": \"Credit Card\",\r\n            \"issuerType\": \"Gift Card\",\r\n            \"loyaltyPayment\": false,\r\n            \"mgmToken\": \"415786ssMMqp6056\",\r\n            \"expireMonth\": \"05\",\r\n            \"expireYear\": \"29\",\r\n            \"securityCode\": \"333\"\r\n        }\r\n    },\r\n    \"additionalAttributes\": [\r\n        {\r\n            \"name\": \"customerReference\",\r\n            \"value\": \"Can be any type\"\r\n        },\r\n        {\r\n            \"name\": \"productDescriptors\",\r\n            \"value\": \"Room, Event\"\r\n        },\r\n        {\r\n            \"name\": \"additionalOrderId\",\r\n            \"value\": \"32323\"\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/auth",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Void",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PPS-Void-Test\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"gatewayResult\");\r",
+							"    pm.response.to.have.status(200);      \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-mgm-source",
+						"value": "web"
+					},
+					{
+						"key": "x-mgm-session-id",
+						"value": "sessionId"
+					},
+					{
+						"key": "x-mgm-journey-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-correlation-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-transaction-id",
+						"value": "TEST_17052024"
+					},
+					{
+						"key": "x-mgm-client-id",
+						"value": "clientID"
+					},
+					{
+						"key": "x-mgm-channel",
+						"value": "paymentwidget"
+					},
+					{
+						"key": "user-agent",
+						"value": "browser"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientReferenceNumber\": \"{{clientRefNum}}\",\r\n    \"paymentId\": \"{{paymentId}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/void",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"void"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

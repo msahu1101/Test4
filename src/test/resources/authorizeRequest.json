@@ -1,0 +1,63 @@
+{
+  "clientReferenceNumber": "0976oo54321",
+  "groupId": "groupId123",
+  "mgmId": "12345",
+  "orderType": "ROOM",
+  "sessionId" : "12343",
+  "clientName": "john",
+  "amount": [
+    {
+      "name": "total",
+      "value": 1123
+    }
+  ],
+  "payment": {
+    "billingAddress": {
+      "firstName": "John",
+      "middleName": "Peter",
+      "lastName": "Smith",
+      "address": "123 Main St",
+      "address2": "Apt 8",
+      "state": "IL",
+      "city": "Chicago",
+      "postalCode": "60601",
+      "country": "US",
+      "phoneNumber": 3125555555,
+      "email": "johnsmith@email.com"
+    },
+    "currencyCode": "USD",
+    "securityCodeIndicator": "CSC_2",
+    "cardPresent": "Y",
+    "tenderDetails": {
+      "nameOnTender": "John",
+      "maskedCardNumber": "xxxxxxxxxxxxxxxxx1212",
+      "tenderType": "CREDITCARD",
+      "issuerType": "BC",
+      "mgmToken": "12341234123412",
+      "expireMonth": "05",
+      "expireYear": "18",
+      "tenderStatus": "Verified",
+      "tenderEmail": "" ,
+      "payerId": "6CB2GS6AQRS5S",
+      "paymentMethodNonce": "fd66f90e-c8ec-0363-6b45-aeb930175e43",
+      "deviceData": "String",
+      "securityCode" : "123"
+    }
+
+  },
+  "additionalAttributes": [
+    {
+      "name": "customerReference",
+      "value": "Can"
+    },
+    {
+      "name": "productDescriptors",
+      "value": "hii"
+    }
+  ]
+}
+
+
+
+
+

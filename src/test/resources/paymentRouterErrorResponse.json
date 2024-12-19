@@ -1,0 +1,56 @@
+{
+  "results": [
+    {
+      "gatewayResult": {
+        "routerFunction": "AUTHORIZE",
+        "orderReferenceNumber": "String",
+        "mgmId": "12345",
+        "server": "UTGAPI11CE",
+        "universalToken": null,
+        "card": {
+          "expireMonth": null,
+          "expireYear": null,
+          "tenderDisplay": null,
+          "present": "Y",
+          "gatewayId": "SHFT4",
+          "gatewayToken": "8058980003568877",
+          "issuerType": null
+        },
+        "transaction": {
+          "authorizationCode": "AVS(N)",
+          "authSource": "E",
+          "gatewayResponse": {
+            "reasonCode": null,
+            "reasonDescription": null,
+            "reattemptPermission": null
+          },
+          "gatewayRRN": "0214970048",
+          "responseCode": "D",
+          "retrievalReference": null,
+          "amex": null,
+          "saleFlag": "S",
+          "deferredAuth": null
+        },
+        "amount": [
+          {
+            "name": "cashback",
+            "value": 20.0
+          },
+          {
+            "name": "tip",
+            "value": null
+          },
+          {
+            "name": "tax",
+            "value": 15.0
+          },
+          {
+            "name": "total",
+            "value": 1.6E8
+          }
+        ],
+        "error": null
+      }
+    }
+  ]
+}

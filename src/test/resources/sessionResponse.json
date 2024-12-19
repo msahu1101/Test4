@@ -1,0 +1,154 @@
+{
+  "sessionId": "e92f3788-0d79-4e13-aa1c-73a38b80b2eb",
+  "sessionType": "Payment",
+  "sessionStatus": "New",
+  "sessionExpiresOn": "2024-07-31T07:30:16.794Z",
+  "transaction": {
+    "transactionId": "d2d8cbcb-bc32-426f-ac5c-91d1ee9815bb",
+    "salesChannel": "https://uat.devtest.vegas",
+    "checkoutTime": "2024-05-22T06:53:48.064639Z",
+    "cartType": "GLOBAL",
+    "transactionType": "Call-Center",
+    "orderStatus": "PENDING",
+    "sessionType": "Payment",
+    "timeToLive": null,
+    "sessionId": null
+  },
+  "guestDetails": {
+    "mgmId": "00uutm8em5h0EU2eV1t7",
+    "firstName": "john",
+    "middleName": "smith",
+    "lastName": "wick",
+    "phoneNumber": "2555765432",
+    "loggedIn": true,
+    "email": "john_s@test.com",
+    "created": "2017-04-12T17:07:24-0700",
+    "lastModifiedDate": "2018-04-12T17:07:24-0700",
+    "address": {
+      "address": "6770 S Edmond St",
+      "address2": "Suite 500",
+      "city": "Las Vegas",
+      "state": "NV",
+      "zip": "89118",
+      "country": "US",
+      "type": null
+    }
+  },
+  "orderItems": {
+    "orderReferenceNumber": "384fabdd-385c-45cvvbb76b-ae1d-03e01b49",
+    "itemAuthGroups": [
+      {
+        "groupId": "f1f93d4e-c3ed-439a-81a6-3c3dabc500f3",
+        "clientId": "MGM-TCOLV-LODG-ADV-DEPOSIT-CALLCENTRE",
+        "authDeclineCount": 0,
+        "authFraudDeclineCount": 0,
+        "verifyDeclineCount": 0,
+        "verifyFraudDeclineCount": 0,
+        "itemsGroupTotal": [
+          {
+            "name": "authAmount",
+            "value": 187.08
+          },
+          {
+            "name": "taxTotal",
+            "value": 27.3
+          }
+        ],
+        "paymentAuthResults": null,
+        "paymentFraudResults": null,
+        "paymentVerifyResults": null,
+        "items": [
+          {
+            "id": "f1f93d4e-c3ed-439a-81a6-3c3dabc500f3",
+            "confirmationNumber": "PENDING",
+            "itemId": "ROOMCD-v",
+            "itemType": "Show",
+            "itemName": "Blue Man Group",
+            "seasonId": "467307ff-ecdb-4aa5-81d2-1b5375b3b525",
+            "propertyId": "607c07e7-3e31-4e4c-a4e1-f55dca66fea2",
+            "propertyName": "Mandalay Bay",
+            "description": null,
+            "quantity": 2,
+            "numberOfGuests": 2,
+            "seat": null,
+            "delivery": null,
+            "duration": {
+              "startDate": "2024-06-26",
+              "startTime": "3:00 PM",
+              "endDate": "2024-06-27",
+              "endTime": "11:00 AM"
+            },
+            "locationAddress": {
+              "address": "3950 S Las Vegas Blvd",
+              "address2": null,
+              "city": "Las Vegas",
+              "state": "NV",
+              "zip": "89119",
+              "country": "United States",
+              "type": null
+            },
+            "amount": {
+              "totalAmount": [
+                {
+                  "name": "total",
+                  "value": 231.3
+                },
+                {
+                  "name": "authAmount",
+                  "value": 187.08
+                },
+                {
+                  "name": "taxTotal",
+                  "value": 27.3
+                }
+              ],
+              "itemizedCharges": [
+                {
+                  "name": "roomTotal",
+                  "value": 187.08
+                },
+                {
+                  "name": "depositDue",
+                  "value": 187.08
+                },
+                {
+                  "name": "totalRoomCharges",
+                  "value": 165.0
+                }
+              ],
+              "taxesAndFees": [
+                {
+                  "type": "TAX",
+                  "code": "resortFeeAndTax",
+                  "amount": 44.22
+                },
+                {
+                  "type": "TAX",
+                  "code": "roomChargeTax",
+                  "amount": 22.08
+                },
+                {
+                  "type": "TAX",
+                  "code": "tourismFeeAndTax",
+                  "amount": 0.0
+                },
+                {
+                  "type": "TAX",
+                  "code": "casinoSurchargeAndTax",
+                  "amount": 0.0
+                },
+                {
+                  "type": "FEE",
+                  "code": "occupancyFee",
+                  "amount": 0.0
+                }
+              ],
+              "discounts": null
+            },
+            "additionalFraudParams": null
+          }
+        ]
+      }
+    ]
+  }
+}

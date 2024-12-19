@@ -1,0 +1,16 @@
+{
+  "clientReferenceNumber": "1223699700101",
+  "paymentId": "27ec1a2c-b7fd-4ba2-879c-c7d9f4550172",
+  "mgmId": "00u1tdaotm5Y20maD0h8",
+  "sessionId" : "session123",
+  "amount": [
+    {
+      "name": "total",
+      "value": 100
+    },
+    {
+      "name": "tax",
+      "value": 11
+    }
+  ]
+}

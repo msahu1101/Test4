@@ -1,0 +1,23 @@
+{
+  "results": [
+    {
+      "gatewayResult": {
+        "router_function": "AUTHORIZE",
+        "orderID": "String",
+        "mgmId": "String",
+        "gatewayId": "SHFT4",
+        "gatewayRRN": "192029",
+        "errorCode": "00041-0009-0-0400",
+        "errorMessage": "Bad Request",
+        "originError": {
+          "code": 40101,
+          "severity": "Error",
+          "primaryCode": "9842",
+          "secondaryCode":  0,
+          "shortText": "NOT IN CARDRANGE",
+          "longText": "Card type not recognized"
+        }
+      }
+    }
+  ]
+}

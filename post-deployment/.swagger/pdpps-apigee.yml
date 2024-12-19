@@ -1,0 +1,602 @@
+openapi: 3.0.1
+info:
+  title: Payment Processing Service API
+  description: Payment Processing Service Documentation
+  license:
+    name: MGM License
+    url: 'License URL '
+  version: V1
+servers:
+  - url: https://pd-payments-processing-service.azurewebsites.net
+    description: Generated server url
+security:
+  - Bearer Authentication: []
+paths:
+  /api/v1/void:
+    post:
+      tags:
+        - payment-processing-controller
+      operationId: voidCall
+      parameters:
+        - name: x-mgm-source
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-journey-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-correlation-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-transaction-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-client-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-channel
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: user-agent
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+        required: true
+      responses:
+        '200':
+          description: Void the Authorized request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Field Validation Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+        '412':
+          description: Pre Condition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+      security:
+        - mgm-roles:
+            - service
+        - service-role:
+            - write
+        - oauth2:
+            - scope:pd-no-access
+
+
+  /api/v1/refund:
+    post:
+      tags:
+        - payment-processing-controller
+      operationId: refund
+      parameters:
+        - name: x-mgm-source
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-journey-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-correlation-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-transaction-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-client-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-channel
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: user-agent
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+        required: true
+      responses:
+        '200':
+          description: Refund request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Field Validation Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+        '412':
+          description: Pre Condition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+      security:
+        - mgm-roles:
+            - service
+        - service-role:
+            - write
+        - oauth2:
+            - scope:pd-no-access
+  /api/v1/capture:
+    post:
+      tags:
+        - payment-processing-controller
+      operationId: capture
+      parameters:
+        - name: x-mgm-source
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-journey-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-correlation-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-transaction-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-client-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-channel
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: user-agent
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+        required: true
+      responses:
+        '200':
+          description: Capture the Authorized request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Field Validation Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+        '412':
+          description: Pre Condition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+      security:
+        - mgm-roles:
+            - service
+        - service-role:
+            - write
+        - oauth2:
+            - scope:pd-no-access
+  /api/v1/auth:
+    post:
+      tags:
+        - payment-processing-controller
+      operationId: authorize
+      parameters:
+        - name: x-mgm-source
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-journey-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-correlation-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-transaction-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-client-id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-mgm-channel
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: user-agent
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+        required: true
+      responses:
+        '200':
+          description: Authorize the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Field Validation Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+        '412':
+          description: Pre Condition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentExceptionResponse'
+      security:
+        - mgm-roles:
+            - service
+        - service-role:
+            - write
+        - oauth2:
+            - scope:pd-no-access
+
+  /api/v1/health:
+    get:
+      tags:
+        - payment-processing-controller
+      operationId: getHealth
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    Amount:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: number
+    BillingAddress:
+      required:
+        - postalCode
+      type: object
+      properties:
+        address:
+          maxLength: 70
+          minLength: 0
+          type: string
+        address2:
+          maxLength: 70
+          minLength: 0
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+    HotelData:
+      type: object
+      properties:
+        folioNumber:
+          type: string
+        checkInDate:
+          type: string
+        checkOutDate:
+          type: string
+        roomRate:
+          type: string
+        expectedDuration:
+          type: string
+    Payment:
+      required:
+        - billingAddress
+        - cardPresent
+        - currencyCode
+        - securityCodeIndicator
+        - tenderDetails
+      type: object
+      properties:
+        billingAddress:
+          $ref: '#/components/schemas/BillingAddress'
+        currencyCode:
+          type: string
+          enum:
+            - USD
+            - INR
+        securityCodeIndicator:
+          type: string
+          enum:
+            - CSC_0
+            - CSC_1
+            - CSC_2
+            - CSC_9
+        cardPresent:
+          type: string
+          enum:
+            - 'Y'
+            - 'N'
+        tenderDetails:
+          $ref: '#/components/schemas/TenderDetails'
+    PaymentRequest:
+      required:
+        - clientReferenceNumber
+        - groupId
+        - itemId
+        - payment
+        - paymentId
+        - sessionId
+      type: object
+      properties:
+        groupId:
+          type: string
+        clientReferenceNumber:
+          type: string
+        mgmId:
+          type: string
+        paymentId:
+          type: string
+        orderType:
+          type: string
+          enum:
+            - EVENT
+            - ROOM
+            - DINING
+        sessionId:
+          type: string
+        clientName:
+          type: string
+        itemId:
+          type: string
+        amount:
+          type: array
+          items:
+            $ref: '#/components/schemas/Amount'
+        payment:
+          $ref: '#/components/schemas/Payment'
+        hotelData:
+          $ref: '#/components/schemas/HotelData'
+        additionalAttributes:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: object
+    TenderDetails:
+      required:
+        - expireMonth
+        - expireYear
+        - issuerType
+        - maskedCardNumber
+        - mgmToken
+        - nameOnTender
+        - tenderType
+      type: object
+      properties:
+        nameOnTender:
+          type: string
+        maskedCardNumber:
+          type: string
+        tenderType:
+          pattern: ^(Credit Card|Debit Card|Gift Card)$
+          type: string
+        issuerType:
+          pattern: ^(Visa|Mastercard|Discover|American Express|Diners Club|JCB|Union Pay|Gift Card)$
+          type: string
+        mgmToken:
+          type: string
+        expireMonth:
+          type: string
+        expireYear:
+          type: string
+        payerId:
+          type: string
+        paymentMethodNonce:
+          type: string
+        deviceData:
+          type: string
+        securityCode:
+          type: string
+    PaymentExceptionResponse:
+      type: object
+      properties:
+        paymentId:
+          type: string
+        dateTime:
+          type: string
+          format: date-time
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
+        developerMessage:
+          type: string
+        originError:
+          type: string
+    Card:
+      type: object
+      properties:
+        maskedCardNumber:
+          type: string
+        gatewayId:
+          type: string
+        mgmToken:
+          type: string
+        securityCodeResult:
+          type: string
+        securityCodeValid:
+          type: string
+    GatewayResponse:
+      type: object
+      properties:
+        reasonCode:
+          type: string
+        reasonDescription:
+          type: string
+        reattemptPermission:
+          type: string
+    GatewayResult:
+      type: object
+      properties:
+        clientReferenceNumber:
+          type: string
+        groupId:
+          type: string
+        type:
+          type: string
+          enum:
+            - AUTHORIZE
+            - CAPTURE
+            - VOID
+            - REFUND
+        mgmId:
+          type: string
+        card:
+          $ref: '#/components/schemas/Card'
+        transactionStatus:
+          type: string
+        transactionCode:
+          type: string
+        transaction:
+          $ref: '#/components/schemas/Transaction'
+        dateTime:
+          type: string
+          format: date-time
+        amount:
+          type: array
+          items:
+            $ref: '#/components/schemas/Amount'
+    PaymentResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+        statusCode:
+          type: string
+        statusDesc:
+          type: string
+    Result:
+      type: object
+      properties:
+        gatewayResult:
+          $ref: '#/components/schemas/GatewayResult'
+    Transaction:
+      type: object
+      properties:
+        paymentId:
+          type: string
+        authorizationCode:
+          type: string
+        gatewayResponse:
+          $ref: '#/components/schemas/GatewayResponse'
+        avsResult:
+          type: string
+        avsValid:
+          type: string
+        responseCode:
+          type: string
+  securitySchemes:
+    Bearer Authentication:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

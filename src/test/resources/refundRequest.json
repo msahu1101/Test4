@@ -1,0 +1,20 @@
+{
+  "clientReferenceNumber": "12345",
+  "sessionId": "tttt",
+  "itemId": "12345",
+  "amount": [
+
+    {
+      "name": "total",
+      "value": 60
+    }
+  ],
+  "payment": {
+    "cardPresent": "Y",
+    "tenderDetails": {
+      "mgmToken": "12341234123412",
+      "expireMonth": 10,
+      "expireYear": 2025
+    }
+  }
+}

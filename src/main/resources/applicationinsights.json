@@ -1,0 +1,6 @@
+{
+  "connectionStringConfiguredAtRuntime": true,
+  "sampling": {
+    "percentage": 100
+  }
+}

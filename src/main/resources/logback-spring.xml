@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty scope="context" name="INSTRUMENTATION_KEY"
+                    source="azure.application-insights.instrumentation-key"/>
+    <appender name="aiAppender"
+              class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
+        <instrumentationKey>${INSTRUMENTATION_KEY}</instrumentationKey>
+    </appender>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <property name="LOG_PATTERN" value="%d %p Metadata[%X{traceId},%X{spanId},correlationId:%X{correlationId},journeyId:%X{journeyId},transactionId:%X{transactionId}][%t] %C{1.}  %m%n" />
+    <springProperty scope="context" name="inst" source="logging.pattern.console"/>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="aiAppender" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
